@@ -2,9 +2,9 @@ import React from 'react';
 import './collection-preview.styles.scss';
 
 import CollectionList from '../collection-list/collection-list.component';
-import type { CollectionPreviewProps } from '../../types';
+import type { CollectionPreviewProps } from '../../../types';
 
-const CollectionPreview = ({
+export const CollectionPreview = ({
 	title,
 	items,
 	routeName,
