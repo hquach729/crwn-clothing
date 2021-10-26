@@ -1,4 +1,5 @@
 import React from 'react';
+// import { RouteComponentProps } from 'react-router-dom';
 import MenuItem from '../menu-item/menu-item.component';
 import './directory-menu.styles.scss';
 
@@ -22,18 +23,18 @@ const sections = [
 		linkUrl: 'shop/sneakers',
 	},
 	{
-		title: 'womens',
+		title: 'women',
 		imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
 		size: 'large',
 		id: 4,
-		linkUrl: 'shop/womens',
+		linkUrl: 'shop/women',
 	},
 	{
-		title: 'mens',
+		title: 'men',
 		imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
 		size: 'large',
 		id: 5,
-		linkUrl: 'shop/mens',
+		linkUrl: 'shop/men',
 	},
 ];
 
@@ -45,6 +46,7 @@ export interface Section {
 	size?: string;
 }
 
+// interface DirectoryMenuProps extends RouteComponentProps {}
 interface DirectoryMenuProps {}
 interface DirectorMenuState {
 	sections: Section[];
@@ -57,14 +59,18 @@ class DirectoryMenu extends React.Component<
 	constructor(props: DirectoryMenuProps) {
 		super(props);
 		this.state = { sections };
+		console.log(this.props, this.state);
 	}
 
 	render() {
 		const { sections } = this.state;
+		// const { push } = this.props.history;
+
 		return (
 			<div className='directory-menu'>
-				{sections.map(({ id, title, imageUrl, size }) => (
-					<MenuItem key={id} title={title} imageUrl={imageUrl} size={size} />
+				{/* {sections.map(({ id, title, imageUrl, size, linkUrl }) => ( */}
+				{sections.map(({ id, ...otherSections }) => (
+					<MenuItem key={id} {...otherSections} subtitle={'SHOP NOW'} />
 				))}
 			</div>
 		);
