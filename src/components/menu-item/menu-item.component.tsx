@@ -31,4 +31,4 @@ const MenuItem = ({
 	</div>
 );
 
-export default withRouter(MenuItem);
+export default withRouter(MenuItem); // use of HOC, high order component

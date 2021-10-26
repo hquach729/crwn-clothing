@@ -5,6 +5,7 @@ import './App.css';
 
 // Custom Component
 import HomePage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
 import HatsPage from './pages/hats-page/hats-page.component';
 import JacketsPage from './pages/jackets-page/jackets-page.component';
 
@@ -21,7 +22,7 @@ const SneakersPage = ({
 		</div>
 	);
 };
-const WomenPage = ({
+const WomensPage = ({
 	history,
 	location,
 	match,
@@ -34,7 +35,7 @@ const WomenPage = ({
 		</div>
 	);
 };
-const MenPage = ({
+const MensPage = ({
 	history,
 	location,
 	match,
@@ -51,11 +52,12 @@ const MenPage = ({
 const App = () => (
 	<Switch>
 		<Route exact path='/' component={HomePage} />
+		<Route exact path='/shop' component={ShopPage} />
 		<Route exact path='/shop/hats' component={HatsPage} />
 		<Route exact path='/shop/jackets' component={JacketsPage} />
 		<Route exact path='/shop/sneakers' component={SneakersPage} />
-		<Route exact path='/shop/women' component={WomenPage} />
-		<Route exact path='/shop/men' component={MenPage} />
+		<Route exact path='/shop/womens' component={WomensPage} />
+		<Route exact path='/shop/mens' component={MensPage} />
 	</Switch>
 );
 
