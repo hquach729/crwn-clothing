@@ -7,8 +7,12 @@ export const NAV_ITEMS = [
 		content: 'Contact',
 		url: '/contact',
 	},
-	{
-		content: 'Sign In',
-		url: '/signin',
-	},
+	// {
+	// 	content: 'Sign In',
+	// 	url: '/signin',
+	// },
+	// {
+	// 	content: 'Sign Out',
+	// 	url: '/signout',
+	// },
 ];

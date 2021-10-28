@@ -1,6 +1,8 @@
+// React
 import React from 'react';
+
+// Routing
 import { Switch, Route } from 'react-router-dom';
-// import { RouteComponentProps } from 'react-router-dom';
 import './App.css';
 
 // Header Component
@@ -9,55 +11,61 @@ import Header from './components/header/header.component';
 // Page Component
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
+import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
-// const SneakersPage = ({
-// 	history,
-// 	location,
-// 	match,
-// 	staticContext,
-// }: RouteComponentProps) => {
-// 	return (
-// 		<div className='sneakers-page'>
-// 			<button onClick={() => history.push('/')}>HomePage</button>
-// 			<h1>Sneakers Page</h1>
-// 		</div>
-// 	);
-// };
-// const WomensPage = ({
-// 	history,
-// 	location,
-// 	match,
-// 	staticContext,
-// }: RouteComponentProps) => {
-// 	return (
-// 		<div className='women-page'>
-// 			<button onClick={() => history.push('/')}>HomePage</button>
-// 			<h1>Women Page</h1>
-// 		</div>
-// 	);
-// };
-// const MensPage = ({
-// 	history,
-// 	location,
-// 	match,
-// 	staticContext,
-// }: RouteComponentProps) => {
-// 	return (
-// 		<div className='women-page'>
-// 			<button onClick={() => history.push('/')}>HomePage</button>
-// 			<h1>Men Page</h1>
-// 		</div>
-// 	);
-// };
+// Firebase
+import { auth } from './firebase/firebase.util';
+import type { User, Unsubscribe } from 'firebase/auth';
 
-const App = () => (
-	<div className='app'>
-		<Header />
-		<Switch>
-			<Route exact path='/' component={HomePage} />
-			<Route exact path='/shop' component={ShopPage} />
-		</Switch>
-	</div>
-);
+interface AppProps {}
+interface AppState {
+	currentUser?: User | null;
+}
+
+export class App extends React.Component<AppProps, AppState> {
+	constructor(props: AppProps) {
+		super(props);
+		this.state = {
+			currentUser: null,
+		};
+	}
+
+	// Class properties
+	unsubscribeFromAuth: Unsubscribe | null = null;
+
+	/**
+	 * Each time we launch our browser, this will check if the user login status
+	 * Whenever there is a change on firebase, this subscription will get the new updates
+	 */
+	componentDidMount() {
+		this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+			console.log({ user });
+			this.setState({ currentUser: user }, () =>
+				console.log(this.state.currentUser)
+			);
+		});
+	}
+
+	/**
+	 * Unsubscribe from firebase update, so we don't have memory leak
+	 */
+	componentWillUnmount() {
+		if (this.unsubscribeFromAuth) this.unsubscribeFromAuth();
+	}
+
+	render() {
+		const { currentUser } = this.state;
+		return (
+			<div className='app'>
+				<Header currentUser={currentUser!} />
+				<Switch>
+					<Route exact path='/' component={HomePage} />
+					<Route exact path='/shop' component={ShopPage} />
+					<Route exact path='/signin' component={SignInAndSignUpPage} />
+				</Switch>
+			</div>
+		);
+	}
+}
 
 export default App;

@@ -1,14 +1,12 @@
 import React from 'react';
-import { NAV_ITEMS } from './nav-menu.config';
 import './nav-menu.styles.scss';
 
-import NavItem from '../nav-item/nav-item.component';
+interface NavMenuProps {
+	children: React.ReactNode;
+}
 
-const NavMenu = () => (
-	<div className='options'>
-		{NAV_ITEMS.map((item, index) => (
-			<NavItem key={index} {...item} />
-		))}
-	</div>
+const NavMenu = ({ children }: NavMenuProps) => (
+	<div className='options'>{children}</div>
 );
+
 export default NavMenu;
