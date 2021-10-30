@@ -24,8 +24,8 @@ class DirectoryMenu extends React.Component<
 > {
 	constructor(props: DirectoryMenuProps) {
 		super(props);
-		this.state = { sections };
-		console.log(this.props, this.state);
+		this.state = { sections: sections };
+		// console.log(this.props, this.state);
 	}
 
 	render() {

@@ -14,8 +14,10 @@ import { auth } from '../../firebase/firebase.util';
 import { withRouter } from 'react-router-dom';
 import type { RouteComponentProps } from 'react-router-dom';
 
+import type { DocumentData } from 'firebase/firestore';
 interface HeaderProps extends RouteComponentProps {
-	currentUser?: User;
+	// currentUser?: User;
+	currentUser?: DocumentData;
 }
 
 const Header = ({ currentUser, history }: HeaderProps) => (

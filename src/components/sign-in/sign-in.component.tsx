@@ -14,6 +14,7 @@ interface SignInState {
 	password?: string;
 }
 class SignIn extends React.Component<SignInProps, SignInState> {
+	// constructor(props: SignInProps) {
 	constructor(props: SignInProps) {
 		super(props);
 		this.state = {
@@ -22,7 +23,7 @@ class SignIn extends React.Component<SignInProps, SignInState> {
 		};
 	}
 
-	handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		// console.log(this.state);
 
@@ -68,7 +69,7 @@ class SignIn extends React.Component<SignInProps, SignInState> {
 						value={email}
 						required
 						handleChange={this.handleChange}
-						label='email'
+						label='Email'
 						autoComplete='false'
 					/>
 					<FormInput
@@ -77,7 +78,7 @@ class SignIn extends React.Component<SignInProps, SignInState> {
 						value={password}
 						required
 						handleChange={this.handleChange}
-						label='password'
+						label='Password'
 						autoComplete='false'
 					/>
 					<div className='button-group'>

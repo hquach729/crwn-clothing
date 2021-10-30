@@ -14,43 +14,47 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 // Firebase
-import { auth } from './firebase/firebase.util';
+import { auth, createUserProfileDocument } from './firebase/firebase.util';
 import type { User, Unsubscribe } from 'firebase/auth';
 
+import { DocumentData } from 'firebase/firestore';
 interface AppProps {}
 interface AppState {
-	currentUser?: User | null;
+	currentUser?: DocumentData | null;
 }
 
 export class App extends React.Component<AppProps, AppState> {
+	unsubscribeFromAuth: Unsubscribe | null;
+
 	constructor(props: AppProps) {
 		super(props);
+		this.unsubscribeFromAuth = null;
 		this.state = {
 			currentUser: null,
 		};
 	}
 
-	// Class properties
-	unsubscribeFromAuth: Unsubscribe | null = null;
+	signIn = async (userAuth: User) => {
+		const { docSnap } = await createUserProfileDocument(userAuth);
 
-	/**
-	 * Each time we launch our browser, this will check if the user login status
-	 * Whenever there is a change on firebase, this subscription will get the new updates
-	 */
+		this.setState({ currentUser: { id: docSnap.id, ...docSnap.data() } }, () =>
+			console.log('User sign in', this.state)
+		);
+	};
+	signOut = (userAuth: User | null) => {
+		this.setState({ currentUser: userAuth }, () =>
+			console.log('User sign out', this.state)
+		);
+	};
+
 	componentDidMount() {
-		this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-			console.log({ user });
-			this.setState({ currentUser: user }, () =>
-				console.log(this.state.currentUser)
-			);
+		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+			userAuth ? this.signIn(userAuth) : this.signOut(userAuth);
 		});
 	}
 
-	/**
-	 * Unsubscribe from firebase update, so we don't have memory leak
-	 */
 	componentWillUnmount() {
-		if (this.unsubscribeFromAuth) this.unsubscribeFromAuth();
+		this.unsubscribeFromAuth = null;
 	}
 
 	render() {
