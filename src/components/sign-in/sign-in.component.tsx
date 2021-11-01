@@ -15,7 +15,6 @@ interface SignInState {
 	password?: string;
 }
 class SignIn extends React.Component<SignInProps, SignInState> {
-	// constructor(props: SignInProps) {
 	constructor(props: SignInProps) {
 		super(props);
 		this.state = {
@@ -24,20 +23,21 @@ class SignIn extends React.Component<SignInProps, SignInState> {
 		};
 	}
 
-	// Sign in with username and email using google firebase service
-	handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
+	storeBackendUserInfoToState = async () => {
 		const { email, password } = this.state;
+
+		if (!email || !password) return;
+
 		try {
-			if (email && password) {
-				const userCredential = await signInWithEmailAndPassword(
-					auth,
-					email,
-					password
-				);
-				console.log({ userCredential });
-				this.setState({ email: '', password: '' });
-			}
+			const userCredential = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password
+			);
+			console.log({ userCredential });
+			this.setState({ email: '', password: '' }, () =>
+				this.props.history.push('/')
+			);
 		} catch (error: unknown) {
 			if (error instanceof Error) {
 				console.log(error.message);
@@ -47,20 +47,27 @@ class SignIn extends React.Component<SignInProps, SignInState> {
 		}
 	};
 
-	handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = event.target;
-		console.log({ name, value });
-		this.setState({ [name]: value });
+	// Sign in with username and email using google firebase service
+	handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		this.storeBackendUserInfoToState();
 	};
 
-	// This sign require user to select their existing google account to login
+	handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>
+		this.setState({ [target.name]: target.value });
+
+	/**
+	 * Sign in with Google Account Authentication
+	 */
 	handleGoogleSignIn = async () => {
-		const { user } = await signInWithGoogle();
-		if (user) {
+		try {
+			await signInWithGoogle();
 			this.props.history.push('/');
-		} else {
-			console.log('sign in fail');
+		} catch (error: unknown) {
+			console.log(error);
 		}
+		// const { user } = await signInWithGoogle();
+		// user ? this.props.history.push('/') : console.log('sign in fail');
 	};
 
 	render() {

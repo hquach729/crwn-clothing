@@ -129,10 +129,11 @@ class SignUp extends React.Component<SignUpProps, SignUpState> {
 						required
 					/>
 					<div className='button-group'>
-						<CustomButton content='Sign Up' type='button' />
+						{/* <CustomButton content='Sign Up' type='button' /> */}
 						<CustomButton
-							content='Sign Up With Google'
-							isGoogleSignIn
+							// content='Sign Up With Google'
+							content='Sign Up'
+							// isGoogleSignIn
 							type='submit'
 						/>
 					</div>

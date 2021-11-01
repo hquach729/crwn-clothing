@@ -8,7 +8,7 @@ import MenuLogo from '../menu-logo/menu-logo.component';
 import NavItem from '../nav-item/nav-item.component';
 
 //  Firebase
-import type { User } from 'firebase/auth';
+// import type { User } from 'firebase/auth';
 import { auth } from '../../firebase/firebase.util';
 
 import { withRouter } from 'react-router-dom';

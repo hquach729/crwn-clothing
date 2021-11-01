@@ -13,8 +13,7 @@ import {
 	where,
 	doc,
 } from 'firebase/firestore';
-// import type { User, Auth, AuthProvider } from 'firebase/auth';
-import type { User, Auth, createUserWithEmailAndPassword } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 import type {
 	Firestore,
 	DocumentData,

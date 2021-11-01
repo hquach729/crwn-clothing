@@ -34,19 +34,6 @@ export class App extends React.Component<AppProps, AppState> {
 		};
 	}
 
-	signIn = async (userAuth: User) => {
-		const { docSnap } = await createUserProfileDocument(userAuth);
-
-		this.setState({ currentUser: { id: docSnap.id, ...docSnap.data() } }, () =>
-			console.log('User sign in', this.state)
-		);
-	};
-	signOut = (userAuth: User | null) => {
-		this.setState({ currentUser: userAuth }, () =>
-			console.log('User sign out', this.state)
-		);
-	};
-
 	componentDidMount() {
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
 			userAuth ? this.signIn(userAuth) : this.signOut(userAuth);
@@ -56,6 +43,20 @@ export class App extends React.Component<AppProps, AppState> {
 	componentWillUnmount() {
 		this.unsubscribeFromAuth = null;
 	}
+
+	signIn = async (userAuth: User) => {
+		const { docSnap } = await createUserProfileDocument(userAuth);
+
+		this.setState({ currentUser: { id: docSnap.id, ...docSnap.data() } }, () =>
+			console.log('User sign in', this.state)
+		);
+	};
+
+	signOut = (userAuth: User | null) => {
+		this.setState({ currentUser: userAuth }, () =>
+			console.log('User not login', this.state)
+		);
+	};
 
 	render() {
 		const { currentUser } = this.state;
