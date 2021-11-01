@@ -4,7 +4,8 @@ import './sign-in.styles.scss';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { signInWithGoogle } from '../../firebase/firebase.util';
+import { auth, signInWithGoogle } from '../../firebase/firebase.util';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { withRouter } from 'react-router-dom';
 import type { RouteComponentProps } from 'react-router-dom';
 
@@ -23,34 +24,42 @@ class SignIn extends React.Component<SignInProps, SignInState> {
 		};
 	}
 
+	// Sign in with username and email using google firebase service
 	handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		// console.log(this.state);
-
-		// Clear out field
-		this.setState({ email: '', password: '' }, () => console.log(this.state));
+		const { email, password } = this.state;
+		try {
+			if (email && password) {
+				const userCredential = await signInWithEmailAndPassword(
+					auth,
+					email,
+					password
+				);
+				console.log({ userCredential });
+				this.setState({ email: '', password: '' });
+			}
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				console.log(error.message);
+			} else {
+				console.log(error);
+			}
+		}
 	};
 
 	handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 		console.log({ name, value });
 		this.setState({ [name]: value });
-
-		// this.setState(
-		// 	(prevState, prevProps) => {
-		// 		console.log({ prevState, prevProps });
-		// 		return { ...prevState, [name]: value };
-		// 	},
-		// 	() => {
-		// 		console.log(this.state);
-		// 	}
-		// );
 	};
 
+	// This sign require user to select their existing google account to login
 	handleGoogleSignIn = async () => {
 		const { user } = await signInWithGoogle();
 		if (user) {
 			this.props.history.push('/');
+		} else {
+			console.log('sign in fail');
 		}
 	};
 
