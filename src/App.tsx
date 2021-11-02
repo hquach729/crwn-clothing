@@ -1,8 +1,11 @@
 // React
 import React from 'react';
+import { connect } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.actions';
+import { CurrentUser } from './redux/user/user.types';
 
 // Routing
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
 // Header Component
@@ -16,12 +19,15 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 // Firebase
 import { auth, createUserProfileDocument } from './firebase/firebase.util';
 import type { User, Unsubscribe } from 'firebase/auth';
+import { Dispatch } from 'redux';
+import { RootState } from './redux/store';
 
-import { DocumentData } from 'firebase/firestore';
-interface AppProps {}
-interface AppState {
-	currentUser?: DocumentData | null;
+interface AppProps {
+	currentUser: CurrentUser;
+	setCurrentUser: any;
 }
+
+interface AppState {}
 
 export class App extends React.Component<AppProps, AppState> {
 	unsubscribeFromAuth: Unsubscribe | null;
@@ -29,13 +35,12 @@ export class App extends React.Component<AppProps, AppState> {
 	constructor(props: AppProps) {
 		super(props);
 		this.unsubscribeFromAuth = null;
-		this.state = {
-			currentUser: null,
-		};
 	}
 
 	componentDidMount() {
+		// This will continue to run on the background listening for update from google
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+			console.log('receive state change', { userAuth });
 			userAuth ? this.signIn(userAuth) : this.signOut(userAuth);
 		});
 	}
@@ -45,32 +50,51 @@ export class App extends React.Component<AppProps, AppState> {
 	}
 
 	signIn = async (userAuth: User) => {
+		const { setCurrentUser } = this.props;
+		// Either create new user profile or return a the current profile that exist on firebase
 		const { docSnap } = await createUserProfileDocument(userAuth);
-
-		this.setState({ currentUser: { id: docSnap.id, ...docSnap.data() } }, () =>
-			console.log('User sign in', this.state)
-		);
+		// console.log(docSnap.id, docSnap.data());
+		console.log(docSnap.data());
+		setCurrentUser({ id: docSnap.id, ...docSnap.data() });
 	};
 
 	signOut = (userAuth: User | null) => {
-		this.setState({ currentUser: userAuth }, () =>
-			console.log('User not login', this.state)
-		);
+		const { setCurrentUser } = this.props;
+		setCurrentUser(userAuth);
 	};
 
 	render() {
-		const { currentUser } = this.state;
+		// console.log('render', this.props.currentUser);
 		return (
 			<div className='app'>
-				<Header currentUser={currentUser!} />
+				<Header />
 				<Switch>
 					<Route exact path='/' component={HomePage} />
 					<Route exact path='/shop' component={ShopPage} />
-					<Route exact path='/signin' component={SignInAndSignUpPage} />
+					{/* <Route exact path='/signin' component={SignInAndSignUpPage} /> */}
+					<Route
+						exact
+						path='/signin'
+						render={() =>
+							this.props.currentUser ? (
+								<Redirect to='/' />
+							) : (
+								<SignInAndSignUpPage />
+							)
+						}
+					/>
 				</Switch>
 			</div>
 		);
 	}
 }
 
-export default App;
+const mapStateToProps = ({ user }: RootState) => ({
+	currentUser: user.currentUser,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+	setCurrentUser: (user: CurrentUser) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
