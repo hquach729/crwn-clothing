@@ -5,20 +5,21 @@ interface CustomButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	content?: string;
 	children?: React.ReactNode;
 	isGoogleSignIn?: boolean;
+	inverted?: boolean;
 }
 
 export const CustomButton = ({
 	children,
 	content,
 	isGoogleSignIn,
+	inverted,
 	...otherButtonProps
 }: CustomButtonProps) => (
-	// <button className='custom-button' {...otherButtonProps}>
 	<button
-		className={`${isGoogleSignIn ? 'google-sign-in ' : ''}custom-button`}
-		// className={`${
-		// 	isGoogleSignIn ? 'google-sign-in custom-button' : 'custom-button'
-		// } `}
+		className={`${inverted ? 'inverted ' : ''} ${
+			isGoogleSignIn ? 'google-sign-in ' : ''
+		}custom-button`}
+		// className={`${inverted ? 'inverted ' : ''}custom-button`}
 		{...otherButtonProps}
 	>
 		{children || content}

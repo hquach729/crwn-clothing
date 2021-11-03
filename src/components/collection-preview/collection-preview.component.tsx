@@ -4,6 +4,14 @@ import './collection-preview.styles.scss';
 import CollectionList from '../collection-list/collection-list.component';
 import type { CollectionPreviewProps } from '../../types';
 
+interface CollectionTitleProps {
+	title: string;
+}
+
+const CollectionTitle = ({ title }: CollectionTitleProps) => (
+	<h1 className='title'>{title.toLocaleUpperCase()}</h1>
+);
+
 const CollectionPreview = ({
 	title,
 	items,

@@ -10,13 +10,13 @@ interface CollectionListProps {
 }
 
 const CollectionList = ({ items, displayItem = 4 }: CollectionListProps) => (
-	<>
+	<div className='preview'>
 		{items
 			.filter((item, idx) => idx < displayItem)
 			.map(({ id, ...otherItemProps }) => (
 				<CollectionItem key={id} {...otherItemProps} />
 			))}
-	</>
+	</div>
 );
 
 export default CollectionList;

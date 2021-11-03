@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from '../../redux/store';
-
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import { DocumentData } from '@firebase/firestore';
@@ -14,11 +13,11 @@ export const reduxStoreConnector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof reduxStoreConnector>;
 
-export interface HeaderProps extends PropsFromRedux, RouteComponentProps {
+export interface AuthNavProps extends PropsFromRedux, RouteComponentProps {
 	currentUser: User | DocumentData | null;
 	handleClick?: () => void;
 }
 
-export const connector = (component: React.ComponentType<HeaderProps>) => {
+export const connector = (component: React.ComponentType<AuthNavProps>) => {
 	return reduxStoreConnector(withRouter(component));
 };

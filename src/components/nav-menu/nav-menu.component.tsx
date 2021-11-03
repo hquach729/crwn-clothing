@@ -5,7 +5,7 @@ interface NavMenuProps {
 	children: React.ReactNode;
 }
 
-const NavMenu = ({ children }: NavMenuProps) => (
+export const NavMenu = ({ children }: NavMenuProps) => (
 	<div className='options'>{children}</div>
 );
 

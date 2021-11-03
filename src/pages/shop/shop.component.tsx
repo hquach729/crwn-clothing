@@ -1,6 +1,7 @@
 import React from 'react';
 import './shop.styles.scss';
 
+// import { CollectionPreviewList } from '../../components/components';
 import { CollectionPreviewList } from '../../components/collection';
 import type { ShopPageState, ShopPageProps, ShopData } from '../../types';
 import data from './shop.data';

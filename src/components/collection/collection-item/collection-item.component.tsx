@@ -1,15 +1,16 @@
 import React from 'react';
+import './collection-item.styles.scss';
 
 import type { CollectionItemProps } from '../../../types';
-import './collection-item.styles.scss';
+import { CustomButton } from '../../custom-button/custom-button.component';
+import { CollectionFooter } from '../collection-footer/collection-footer.component';
+import { CollectionItemImage } from '../collection-item-image/collection-item-image.component';
 
 const CollectionItem = ({ imageUrl, name, price }: CollectionItemProps) => (
 	<div className='collection-item'>
-		<div className='image' style={{ backgroundImage: `url(${imageUrl})` }} />
-		<div className='collection-footer'>
-			<span className='name'>{name}</span>
-			<span className='price'>{`$${price}`}</span>
-		</div>
+		<CollectionItemImage imageUrl={imageUrl} />
+		<CollectionFooter name={name} price={price} />
+		<CustomButton inverted content='Add to Cart' />
 	</div>
 );
 

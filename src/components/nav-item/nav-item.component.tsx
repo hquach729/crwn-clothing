@@ -8,7 +8,7 @@ interface NavItemProps {
 	handleClick?: () => void;
 }
 
-const NavItem = ({
+export const NavItem = ({
 	content,
 	url,
 	handleClick = (): void => {},
