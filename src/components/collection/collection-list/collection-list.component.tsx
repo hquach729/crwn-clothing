@@ -14,6 +14,7 @@ const CollectionList = ({ items, displayItem = 4 }: CollectionListProps) => (
 		{items
 			.filter((item, idx) => idx < displayItem)
 			.map(({ id, ...otherItemProps }) => (
+				// <CollectionItem key={id} {...otherItemProps} />
 				<CollectionItem key={id} {...otherItemProps} />
 			))}
 	</div>

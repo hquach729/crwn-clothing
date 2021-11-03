@@ -13,6 +13,8 @@ const cartReducer = (state = initialState, action: CartAction) => {
 			return { ...state, items: action.payload.items };
 		case CartActionTypes.TOGGLE_DROPDOWN_VISIBILITY:
 			return { ...state, visible: !state.visible };
+		case CartActionTypes.ADD_ITEM_TO_CART:
+			return { ...state, items: state.items + 1 };
 		default:
 			return state;
 	}
