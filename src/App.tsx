@@ -1,7 +1,7 @@
 // React
 import React from 'react';
 import { connect } from 'react-redux';
-import { setCurrentUser } from './redux/user/user.actions';
+import { setCurrentUser, signOutUser } from './redux/user/user.actions';
 import { CurrentUser } from './redux/user/user.types';
 
 // Routing
@@ -25,6 +25,7 @@ import { RootState } from './redux/store';
 interface AppProps {
 	currentUser: CurrentUser;
 	setCurrentUser: any;
+	signOutUser: any;
 }
 
 interface AppState {}
@@ -42,6 +43,7 @@ export class App extends React.Component<AppProps, AppState> {
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
 			console.log('receive state change', { userAuth });
 			userAuth ? this.signIn(userAuth) : this.signOut(userAuth);
+			// userAuth ? this.signIn(userAuth) : this.props.signOutUser(userAuth);
 		});
 	}
 
@@ -58,7 +60,7 @@ export class App extends React.Component<AppProps, AppState> {
 		setCurrentUser({ id: docSnap.id, ...docSnap.data() });
 	};
 
-	signOut = (userAuth: User | null) => {
+	signOut = (userAuth: null) => {
 		const { setCurrentUser } = this.props;
 		setCurrentUser(userAuth);
 	};
@@ -95,6 +97,7 @@ const mapStateToProps = ({ user }: RootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
 	setCurrentUser: (user: CurrentUser) => dispatch(setCurrentUser(user)),
+	signOutUser: (user: CurrentUser) => dispatch(signOutUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
