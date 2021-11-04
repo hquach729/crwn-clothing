@@ -10,11 +10,22 @@ import { CollectionFooter } from '../collection-footer/collection-footer.compone
 import { CollectionItemImage } from '../collection-item-image/collection-item-image.component';
 
 const CollectionItem = reduxStoreConnector(
-	({ imageUrl, name, price, addToCart }: CollectionItemProps) => (
+	({
+		imageUrl,
+		name,
+		price,
+		addToCart,
+		addItemToCart,
+	}: CollectionItemProps) => (
 		<div className='collection-item'>
 			<CollectionItemImage imageUrl={imageUrl} />
 			<CollectionFooter name={name} price={price} />
-			<CustomButton inverted content='Add to Cart' onClick={addToCart} />
+			{/* <CustomButton inverted content='Add to Cart' onClick={addToCart} /> */}
+			<CustomButton
+				inverted
+				content='Add to Cart'
+				onClick={() => addItemToCart({ name, price })}
+			/>
 		</div>
 	)
 );

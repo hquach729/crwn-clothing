@@ -1,20 +1,21 @@
-import { CartAction, CartState, CartActionTypes } from './cart.types';
+import { CartState, CartActionTypes, CartAction } from './cart.types';
 
 const initialState: CartState = {
 	visible: false,
-	items: 0,
+	cartItems: [],
 };
 
 const cartReducer = (state = initialState, action: CartAction) => {
 	switch (action.type) {
 		case CartActionTypes.SET_DROPDOWN_VISIBILITY:
-			return { ...state, visible: action.payload.visible };
-		case CartActionTypes.SET_ITEM_COUNT_IN_CART:
-			return { ...state, items: action.payload.items };
+			return { ...state, visible: action.payload };
 		case CartActionTypes.TOGGLE_DROPDOWN_VISIBILITY:
 			return { ...state, visible: !state.visible };
 		case CartActionTypes.ADD_ITEM_TO_CART:
-			return { ...state, items: state.items + 1 };
+			return {
+				...state,
+				cartItems: [...state.cartItems, action.payload],
+			};
 		default:
 			return state;
 	}

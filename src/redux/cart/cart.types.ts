@@ -14,10 +14,10 @@ export interface CartItem {
 
 export interface CartState {
 	visible: boolean;
-	items: number;
+	cartItems: CartItem[];
 }
 
 export type CartAction = {
 	type: CartActionTypes;
-	payload: CartState;
+	payload: any;
 };

@@ -4,10 +4,10 @@ import { CartIconProps, reduxStoreConnector } from './cart-icon.redux';
 import './cart-icon.styles.scss';
 
 export const CartIcon = reduxStoreConnector(
-	({ items, toggleVisibility }: CartIconProps) => (
+	({ cartItems, toggleVisibility }: CartIconProps) => (
 		<div className='cart-icon' onClick={toggleVisibility}>
 			<ShoppingBagIcon className='shopping-icon' />
-			<span className='item-count'>{items}</span>
+			<span className='item-count'>{cartItems.length}</span>
 		</div>
 	)
 );
