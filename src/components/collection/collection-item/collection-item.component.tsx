@@ -22,7 +22,7 @@ export const CollectionItem = reduxStoreConnector(
 			<CustomButton
 				inverted
 				content='Add to Cart'
-				onClick={() => addItemToCart({ id, name, price })}
+				onClick={() => addItemToCart({ imageUrl, id, name, price })}
 			/>
 		</div>
 	)

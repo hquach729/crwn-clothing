@@ -2,13 +2,7 @@ import React from 'react';
 import './collection-preview-list.styles.scss';
 
 import { CollectionPreview } from '../';
-
-type ShopItem = {
-	id: number;
-	name: string;
-	imageUrl: string;
-	price: number;
-};
+import { ShopItem } from '../../../types';
 
 type SectionTitle = 'Hats' | 'Sneakers' | 'Jackets' | 'Womens' | 'Mens';
 type RouteName = 'hats' | 'sneakers' | 'jackets' | 'womens' | 'mens';
@@ -17,7 +11,7 @@ type ShopData = {
 	id: number;
 	title: SectionTitle | string;
 	routeName: RouteName | string;
-	items: ShopItem[] | [];
+	items: ShopItem[];
 };
 
 interface CollectionPreviewListProps {

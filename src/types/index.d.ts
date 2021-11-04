@@ -1,10 +1,11 @@
 import { RouteComponentProps } from 'react-router-dom';
 
 export interface Item {
-	id?: number;
+	id: number;
 	name: string;
 	imageUrl: string;
 	price: number;
+	qty: number;
 }
 export interface CollectionPreviewProps {
 	title: string;
@@ -12,13 +13,14 @@ export interface CollectionPreviewProps {
 	items: Item[];
 	displayItem?: number;
 }
-export interface CollectionItemProps extends Item {}
+export interface CollectionItemProps extends ShopData {}
 
 type ShopItem = {
 	id: number;
 	name: string;
 	imageUrl: string;
 	price: number;
+	qty: number;
 };
 
 type SectionTitle = 'Hats' | 'Sneakers' | 'Jackets' | 'Womens' | 'Mens';

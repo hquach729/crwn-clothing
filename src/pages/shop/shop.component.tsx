@@ -10,6 +10,7 @@ class ShopPage extends React.Component<ShopPageProps, ShopPageState> {
 	constructor(props: ShopPageProps) {
 		super(props);
 		this.state = {
+			// collections: data as ShopData[],
 			collections: data as ShopData[],
 		};
 	}

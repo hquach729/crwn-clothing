@@ -7,7 +7,7 @@ const CartDropDown = ({ visible }: CartDropDownProps) =>
 	visible ? (
 		<div className='cart-dropdown'>
 			<div className='cart-items'></div>
-			<CustomButton content='GO TO CHECKOUT' />
+			<CustomButton content='GO TO CHECKOUT NOW' />
 		</div>
 	) : null;
 

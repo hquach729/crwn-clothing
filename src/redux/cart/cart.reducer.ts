@@ -1,10 +1,10 @@
 import { CartState, CartActionTypes, CartAction } from './cart.types';
-import { addItemToCart, addItemToShoppingCart } from './cart.utility';
+import { addItemToShoppingCart } from './cart.utility';
 
 const initialState: CartState = {
 	visible: false,
 	cartItems: [],
-	totalItem: 0,
+	totalCartItem: 0,
 	items: {},
 };
 
@@ -14,13 +14,17 @@ const cartReducer = (state = initialState, { type, payload }: CartAction) => {
 			return { ...state, visible: payload };
 		case CartActionTypes.TOGGLE_DROPDOWN_VISIBILITY:
 			return { ...state, visible: !state.visible };
-		case CartActionTypes.UPDATE_TOTAL:
-			return { ...state, totalItem: state.cartItems.length };
+		case CartActionTypes.UPDATE_TOTAL_CART_ITEM:
+			return {
+				...state,
+				totalCartItem: payload
+					? state.totalCartItem + 1
+					: state.totalCartItem - 1,
+			};
 		case CartActionTypes.ADD_ITEM_TO_CART:
 			return {
 				...state,
 				cartItems: addItemToShoppingCart(state, payload),
-				items: addItemToCart(state, payload),
 			};
 		default:
 			return state;
