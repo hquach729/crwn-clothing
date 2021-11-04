@@ -4,3 +4,7 @@ export * from './nav-item/nav-item.component';
 export * from './auth-nav/auth-nav.component';
 export * from './cart-icon/cart-icon.component';
 export * from './cart-dropdown/cart-dropdown.component';
+export * from './custom-button/custom-button.component';
+export * from './collection/collection-footer/collection-footer.component';
+export * from './collection/collection-item/collection-item.component';
+export * from './collection/collection-item-image/collection-item-image.component';

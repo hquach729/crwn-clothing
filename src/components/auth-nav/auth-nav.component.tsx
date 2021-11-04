@@ -1,11 +1,11 @@
 import React from 'react';
 import './auth-nav.styles.scss';
 
-import { AuthNavProps, connector } from './auth-nav.redux';
+import { AuthNavProps, connectorReduxWithRouter } from './auth-nav.redux';
 import { auth } from '../../firebase/firebase.util';
 import NavItem from '../nav-item/nav-item.component';
 
-export const AuthNavItem = connector(
+export const AuthNavItem = connectorReduxWithRouter(
 	({ currentUser, history, handleClick }: AuthNavProps) => (
 		<div className='auth-nav-link'>
 			{currentUser ? (
@@ -24,4 +24,4 @@ export const AuthNavItem = connector(
 	)
 );
 
-export default connector(AuthNavItem);
+export default AuthNavItem;

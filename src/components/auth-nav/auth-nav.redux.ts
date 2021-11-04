@@ -18,6 +18,8 @@ export interface AuthNavProps extends PropsFromRedux, RouteComponentProps {
 	handleClick?: () => void;
 }
 
-export const connector = (component: React.ComponentType<AuthNavProps>) => {
+export const connectorReduxWithRouter = (
+	component: React.ComponentType<AuthNavProps>
+) => {
 	return reduxStoreConnector(withRouter(component));
 };

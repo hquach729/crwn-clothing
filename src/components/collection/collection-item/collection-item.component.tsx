@@ -1,30 +1,28 @@
 import React from 'react';
 import './collection-item.styles.scss';
-
 import {
 	CollectionItemProps,
 	reduxStoreConnector,
 } from './collection-item.redux';
-import { CustomButton } from '../../custom-button/custom-button.component';
-import { CollectionFooter } from '../collection-footer/collection-footer.component';
-import { CollectionItemImage } from '../collection-item-image/collection-item-image.component';
 
-const CollectionItem = reduxStoreConnector(
+import {
+	CustomButton,
+	CollectionFooter,
+	CollectionItemImage,
+} from '../../components';
+
+export const CollectionItem = reduxStoreConnector(
 	({
-		imageUrl,
-		name,
-		price,
-		addToCart,
+		item: { imageUrl, price, name, id },
 		addItemToCart,
 	}: CollectionItemProps) => (
 		<div className='collection-item'>
 			<CollectionItemImage imageUrl={imageUrl} />
 			<CollectionFooter name={name} price={price} />
-			{/* <CustomButton inverted content='Add to Cart' onClick={addToCart} /> */}
 			<CustomButton
 				inverted
 				content='Add to Cart'
-				onClick={() => addItemToCart({ name, price })}
+				onClick={() => addItemToCart({ id, name, price })}
 			/>
 		</div>
 	)

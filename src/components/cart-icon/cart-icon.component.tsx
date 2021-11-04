@@ -12,4 +12,4 @@ export const CartIcon = reduxStoreConnector(
 	)
 );
 
-export default reduxStoreConnector(CartIcon);
+export default CartIcon;

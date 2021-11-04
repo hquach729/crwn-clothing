@@ -13,4 +13,4 @@ export const CartDropDown = reduxStoreConnector(
 		) : null
 );
 
-export default reduxStoreConnector(CartDropDown);
+export default CartDropDown;
