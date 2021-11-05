@@ -1,12 +1,13 @@
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
-import { RootState } from '../../redux/store';
 import { toggleVisibility } from '../../redux/cart/cart.actions';
-// import { CartItem } from '../../redux/cart/cart.types';
+import { selectCartItemCounts } from '../../redux/cart/cart.selectors';
+import { createStructuredSelector } from '@reduxjs/toolkit/node_modules/reselect';
 
-const mapState = ({ cart: { cartItems, totalCartItem } }: RootState) => ({
-	cartItems,
-	totalCartItem,
+type PropsFromRedux = ConnectedProps<typeof reduxStoreConnector>;
+
+const mapState = createStructuredSelector({
+	itemCount: selectCartItemCounts,
 });
 
 const mapDispatch = (dispatch: Dispatch) => ({
@@ -14,7 +15,4 @@ const mapDispatch = (dispatch: Dispatch) => ({
 });
 
 export const reduxStoreConnector = connect(mapState, mapDispatch);
-
-type PropsFromRedux = ConnectedProps<typeof reduxStoreConnector>;
-
 export interface CartIconProps extends PropsFromRedux {}

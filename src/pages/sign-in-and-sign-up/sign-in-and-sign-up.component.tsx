@@ -6,15 +6,20 @@ import SignUp from '../../components/sign-up/sign-up.component';
 
 import { RootState } from '../../redux/store';
 import { connect } from 'react-redux';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 import { User } from 'firebase/auth';
 
-interface Props {
+interface Props extends RouteComponentProps {
 	currentUser?: User;
 }
 
-export const SignInAndSignUpPage = ({ currentUser }: Props) => {
-	// console.log('signInPage', currentUser);
+const SignInAndSignUpPage = ({ currentUser, history }: Props) => {
+	React.useEffect(() => {
+		if (currentUser) {
+			history.push('/');
+		}
+	});
 
 	return (
 		<div className='container'>
@@ -28,6 +33,4 @@ const mapStateToProps = (state: RootState) => ({
 	currentUser: state.user.currentUser,
 });
 
-// export default SignInAndSignUpPage;
-
-export default connect(mapStateToProps, null)(SignInAndSignUpPage);
+export default connect(mapStateToProps, null)(withRouter(SignInAndSignUpPage));

@@ -2,6 +2,7 @@ import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { Item } from '../../../types';
 import { CartActionTypes, CartItem } from '../../../redux/cart/cart.types';
+// import { CartItem } from '../../../redux/cart/cart.types';
 import { addItemToCart } from '../../../redux/cart/cart.actions';
 
 const mapDispatch = (dispatch: Dispatch) => ({

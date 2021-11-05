@@ -6,8 +6,13 @@ import { RouteComponentProps, withRouter } from 'react-router';
 
 import { DocumentData } from '@firebase/firestore';
 import { User } from '@firebase/auth';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
-const mapState = ({ user: { currentUser } }: RootState) => ({ currentUser });
+// const mapState = ({ user: { currentUser } }: RootState) => ({ currentUser });
+
+const mapState = (state: RootState) => ({
+	currentUser: selectCurrentUser(state),
+});
 const mapDispatch = (dispatch: Dispatch) => ({});
 
 export const reduxStoreConnector = connect(mapState, mapDispatch);

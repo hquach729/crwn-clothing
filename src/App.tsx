@@ -5,7 +5,8 @@ import { setCurrentUser, signOutUser } from './redux/user/user.actions';
 import { CurrentUser } from './redux/user/user.types';
 
 // Routing
-import { Switch, Route, Redirect } from 'react-router-dom';
+// import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
 // Header Component
@@ -15,12 +16,16 @@ import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import CheckoutPage from './pages/checkout/checkout.component';
 
 // Firebase
 import { auth, createUserProfileDocument } from './firebase/firebase.util';
 import type { User, Unsubscribe } from 'firebase/auth';
 import { Dispatch } from 'redux';
 import { RootState } from './redux/store';
+
+// State selector
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 interface AppProps {
 	currentUser: CurrentUser;
@@ -66,33 +71,22 @@ export class App extends React.Component<AppProps, AppState> {
 	};
 
 	render() {
-		// console.log('render', this.props.currentUser);
 		return (
 			<div className='app'>
 				<Header />
 				<Switch>
 					<Route exact path='/' component={HomePage} />
 					<Route exact path='/shop' component={ShopPage} />
-					{/* <Route exact path='/signin' component={SignInAndSignUpPage} /> */}
-					<Route
-						exact
-						path='/signin'
-						render={() =>
-							this.props.currentUser ? (
-								<Redirect to='/' />
-							) : (
-								<SignInAndSignUpPage />
-							)
-						}
-					/>
+					<Route exact path='/signin' component={SignInAndSignUpPage} />
+					<Route exact path='/checkout' component={CheckoutPage} />
 				</Switch>
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = ({ user }: RootState) => ({
-	currentUser: user.currentUser,
+const mapStateToProps = (state: RootState) => ({
+	currentUser: selectCurrentUser(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
