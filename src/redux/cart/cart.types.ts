@@ -11,16 +11,21 @@ export enum CartActionTypes {
 	TOGGLE_DROPDOWN_VISIBILITY = 'TOGGLE_DROPDOWN_VISIBILITY',
 	GET_TOTAL_ITEM = 'GET_TOTAL_ITEM',
 	ADD_ITEM = 'ADD_ITEM',
+	REMOVE_CART_ITEM = 'REMOVE_CART_ITEM',
+	INCREASE_ITEM_QTY = 'INCREASE_ITEM_QTY',
+	DECREASE_ITEM_QTY = 'DECREASE_ITEM_QTY',
 }
 
 export type Cart = { [key: string]: CartItem[] };
 
 export interface CartItem {
-	id?: number;
+	// id?: number;
+	id: number;
 	imageUrl: string;
 	name: string;
 	price: number;
-	qty?: number;
+	// qty?: number;
+	qty: number;
 }
 
 export interface CartState {

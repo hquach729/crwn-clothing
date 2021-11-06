@@ -3,7 +3,9 @@ import './cart-item.styles.scss';
 
 import { CartItemProps } from './cart-item.redux';
 
-const CartItem = ({ item: { name, price, imageUrl, qty } }: CartItemProps) => (
+const CartItem = ({
+	item: { id, name, price, imageUrl, qty },
+}: CartItemProps) => (
 	<div className='cart-item'>
 		<img src={imageUrl} alt={name} />
 		<div className='item-details'>

@@ -8,22 +8,26 @@ import CartItem from '../cart-item/cart-item.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 export const CartDropDown = withRouter(
-	reduxStoreConnector(({ visible, cartItems, history }: CartDropDownProps) =>
-		visible ? (
-			<div className='cart-dropdown'>
-				<div className='cart-items'>
-					{cartItems.length ? (
-						cartItems.map((item) => <CartItem key={item.id} item={item} />)
-					) : (
-						<span className='empty-message'>Your Cart is Empty</span>
-					)}
+	reduxStoreConnector(
+		({ visible, cartItems, history, toggleVisibility }: CartDropDownProps) =>
+			visible ? (
+				<div className='cart-dropdown'>
+					<div className='cart-items'>
+						{cartItems.length ? (
+							cartItems.map((item) => <CartItem key={item.id} item={item} />)
+						) : (
+							<span className='empty-message'>Your Cart is Empty</span>
+						)}
+					</div>
+					<CustomButton
+						content='GO TO CHECKOUT'
+						onClick={() => {
+							toggleVisibility();
+							history.push('/checkout');
+						}}
+					/>
 				</div>
-				<CustomButton
-					content='GO TO CHECKOUT'
-					onClick={() => history.push('/checkout')}
-				/>
-			</div>
-		) : null
+			) : null
 	)
 );
 

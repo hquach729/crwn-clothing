@@ -1,15 +1,18 @@
 import { createStore, applyMiddleware } from 'redux';
+import { persistStore } from 'redux-persist';
 import logger from 'redux-logger';
 
-import rootReducer from './root.reducer';
+import rootReducer from './root.reducer'; // reference to export default
 
 const middlewares = [logger];
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+export const store = createStore(rootReducer, applyMiddleware(...middlewares));
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
-export default store;
-
-// export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+
+const datastore = { store, persistor };
+
+// export default store;
+export default datastore;

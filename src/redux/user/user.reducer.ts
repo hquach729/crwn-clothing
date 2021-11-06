@@ -1,10 +1,11 @@
-import { UserActionType, UserAction } from './user.types';
+import { UserActionType } from './user.types';
+import { AnyAction } from 'redux';
 
 const initialState = {
 	currentUser: null,
 };
 
-const userReducer = (state = initialState, action: UserAction) => {
+const userReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
 		case UserActionType.SET_CURRENT_USER:
 			return {
