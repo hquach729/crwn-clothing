@@ -1,10 +1,14 @@
 import React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Section } from '../directory-menu/directory-menu.component';
+// import { withRouter, RouteComponentProps } from 'react-router-dom';
+// import { Section } from '../directory-menu/directory-menu.component';
+import { Section } from '../../redux/directory/directory.types';
 import './menu.item.styles.scss';
 
-interface MenuItemProps extends Section, RouteComponentProps {
+// interface MenuItemProps extends RouteComponentProps {
+// interface MenuItemProps extends Section, RouteComponentProps {
+interface MenuItemProps extends Section {
 	subtitle?: string;
+	handleClick?: () => void;
 }
 
 const MenuItem = ({
@@ -12,13 +16,12 @@ const MenuItem = ({
 	subtitle = '',
 	imageUrl,
 	size,
-	history,
-	match,
-	linkUrl,
+	handleClick,
 }: MenuItemProps) => (
 	<div
 		className={`${size ? size + ' menu-item' : 'menu-item'}`}
-		onClick={() => history.push(`${match.url}${linkUrl}`)}
+		onClick={handleClick}
+		// onClick={() => history.push(`${match.url}${linkUrl}`)}
 	>
 		<div
 			className='background-image'
@@ -31,4 +34,5 @@ const MenuItem = ({
 	</div>
 );
 
-export default withRouter(MenuItem); // use of HOC, high order component
+// export default withRouter(MenuItem); // use of HOC, high order component
+export default MenuItem; // use of HOC, high order component
