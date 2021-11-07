@@ -76,7 +76,8 @@ export class App extends React.Component<AppProps, AppState> {
 				<Header />
 				<Switch>
 					<Route exact path='/' component={HomePage} />
-					<Route exact path='/shop' component={ShopPage} />
+					<Route path='/shop' component={ShopPage} />
+					{/* <Route exact path='/shop' component={ShopPage} /> */}
 					<Route exact path='/signin' component={SignInAndSignUpPage} />
 					<Route exact path='/checkout' component={CheckoutPage} />
 				</Switch>

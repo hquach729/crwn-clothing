@@ -1,10 +1,7 @@
 // import { Action, AnyAction } from 'redux';
 import { DirectoryActionTypes } from './directory.types';
 import data from '../../data/sections.data';
-
-const initialState = {
-	sections: data,
-};
+// import { AnyAction } from 'redux';
 
 interface Section {
 	id: number;
@@ -12,7 +9,6 @@ interface Section {
 	imageUrl: string;
 	linkUrl: string;
 }
-
 type GetDirectoryAction = {
 	type: DirectoryActionTypes.GET_DIRECTORY_SECTIONS;
 };
@@ -21,13 +17,18 @@ type UpdateDirectoryAction = {
 	payload: Section;
 };
 
+const initialState = {
+	sections: data,
+};
+
 type DirectoryAction = GetDirectoryAction | UpdateDirectoryAction;
 
 const directoryReducer = (state = initialState, action: DirectoryAction) => {
+	// const directoryReducer = (state = initialState, action: AnyAction) => {
 	switch (action.type) {
-		// case DirectoryActionTypes.GET_DIRECTORY_SECTIONS:
-		// 	// return state.sections;
-		// 	return state;
+		case DirectoryActionTypes.GET_DIRECTORY_SECTIONS:
+			return state;
+		// return state.sections;
 		// case DirectoryActionTypes.UPDATE_DIRECTORY_SECTIONS:
 		// 	return { ...state, sections: [...state.sections, action.payload] };
 		default:

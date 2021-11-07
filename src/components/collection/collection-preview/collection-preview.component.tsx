@@ -3,12 +3,22 @@ import './collection-preview.styles.scss';
 
 import CollectionList from '../collection-list/collection-list.component';
 import CollectionTitle from '../collection-title/collection-title.component';
-import { CollectionPreviewProps } from '../../../types';
+import { ShopItem } from '../../../types';
 
-export const CollectionPreview = ({ title, items }: CollectionPreviewProps) => (
+interface CollectionPreviewProps {
+	displayItem?: number | boolean;
+	title: string;
+	items: ShopItem[];
+}
+
+const CollectionPreview = ({
+	title,
+	items,
+}: // displayItem,
+CollectionPreviewProps) => (
 	<div className='collection-preview'>
 		<CollectionTitle title={title} />
-		<CollectionList items={items} displayItem={4} />
+		<CollectionList items={items} />
 	</div>
 );
 

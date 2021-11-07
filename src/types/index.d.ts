@@ -1,16 +1,19 @@
-import { RouteComponentProps } from 'react-router-dom';
+// import { RouteComponentProps } from 'react-router-dom';
+import { CartItem } from '../../../redux/cart/cart.types';
 
 export interface Item {
 	id: number;
 	name: string;
 	imageUrl: string;
 	price: number;
-	qty: number;
+	qty?: number;
 }
 export interface CollectionPreviewProps {
 	title: string;
 	routeName: string;
-	items: Item[];
+	// items: Item[];
+	// items: ShopItem[];
+	items: CartItem[];
 	displayItem?: number;
 }
 export interface CollectionItemProps extends ShopData {}
@@ -20,7 +23,7 @@ type ShopItem = {
 	name: string;
 	imageUrl: string;
 	price: number;
-	qty: number;
+	qty?: number;
 };
 
 type SectionTitle = 'Hats' | 'Sneakers' | 'Jackets' | 'Womens' | 'Mens';
@@ -33,7 +36,7 @@ type ShopData = {
 	items: ShopItem[] | [];
 };
 
-export interface ShopPageProps extends RouteComponentProps {}
-export interface ShopPageState {
-	collections: ShopData[];
-}
+// export interface ShopPageProps extends RouteComponentProps {}
+// export interface ShopPageState {
+// 	collections: ShopData[];
+// }

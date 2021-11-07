@@ -37,7 +37,7 @@ const DirectoryMenu = connector(
 					{...otherSection}
 					subtitle={'SHOP NOW'}
 					handleClick={() => {
-						console.log({ match: match.url, linkUrl: otherSection.linkUrl });
+						console.log({ match: match, linkUrl: otherSection.linkUrl });
 						const url = `${match.url}${otherSection.linkUrl}`;
 						history.push(url);
 					}}

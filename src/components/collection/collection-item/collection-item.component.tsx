@@ -12,21 +12,21 @@ import {
 } from '../../components';
 
 export const CollectionItem = reduxStoreConnector(
-	({
-		// item: { imageUrl, price, name, id },
-		item: { qty, imageUrl, price, name, id },
-		addItemToCart,
-	}: CollectionItemProps) => (
+	// ({ item, addItemToCart, handleClick }: CollectionItemProps) => (
+	({ item, addItemToCart }: CollectionItemProps) => (
 		<div className='collection-item'>
-			<CollectionItemImage imageUrl={imageUrl} />
-			<CollectionFooter name={name} price={price} />
+			<CollectionItemImage imageUrl={item.imageUrl} />
+			<CollectionFooter name={item.name} price={item.price} />
 			<CustomButton
 				inverted
 				content='Add to Cart'
-				onClick={() => addItemToCart({ qty, imageUrl, id, name, price })}
+				// content='Add to Cart'
+				onClick={() => addItemToCart(item)}
 			/>
 		</div>
 	)
 );
+
+// const CollectionItem = ()
 
 export default CollectionItem;

@@ -2,14 +2,14 @@ import React from 'react';
 import './collection-list.styles.scss';
 
 import CollectionItem from '../collection-item/collection-item.component';
-import type { Item } from '../../../types';
+import { ShopItem } from '../../../types';
 
 interface CollectionListProps {
-	items: Item[];
+	items: ShopItem[];
 	displayItem?: number;
 }
 
-const CollectionList = ({ items, displayItem = 4 }: CollectionListProps) => (
+const CollectionList = ({ displayItem = 4, items }: CollectionListProps) => (
 	<div className='preview'>
 		{items
 			.filter((_, idx) => idx < displayItem)
