@@ -1,10 +1,14 @@
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
-import { selectShopItems } from '../../redux/shop/shop.selectors';
+import {
+	// selectShopItems,
+	selectCollections,
+} from '../../redux/shop/shop.selectors';
 import { createStructuredSelector } from 'reselect';
 
 const mapState = createStructuredSelector({
-	collections: selectShopItems,
+	// collections: selectShopItems,
+	collections: selectCollections,
 });
 
 const mapDispatch = (dispatch: Dispatch) => ({});

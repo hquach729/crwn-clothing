@@ -19,6 +19,7 @@ CollectionPreviewProps) => (
 	<div className='collection-preview'>
 		<CollectionTitle title={title} />
 		<CollectionList items={items} />
+		{/* <CollectionList collection={items} /> */}
 	</div>
 );
 

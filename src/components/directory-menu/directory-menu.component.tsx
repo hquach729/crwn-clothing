@@ -8,6 +8,7 @@ import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { selectSection } from '../../redux/directory/directory.selectors';
 import { createStructuredSelector } from 'reselect';
+import { getShopCollection } from '../../redux/shop/shop.actions';
 // import { useHistory, useRouteMatch, useLocation } from 'react-router';
 import {
 	// useHistory,
@@ -20,7 +21,9 @@ const mapState = createStructuredSelector({
 	sections: selectSection,
 });
 
-const mapDispatch = (dispatch: Dispatch) => ({});
+const mapDispatch = (dispatch: Dispatch) => ({
+	getShopCollection: (name: string) => dispatch(getShopCollection(name)),
+});
 
 const connector = connect(mapState, mapDispatch);
 
@@ -29,7 +32,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 interface DirectMenuProps extends PropsFromRedux, RouteComponentProps {}
 
 const DirectoryMenu = connector(
-	({ sections, history, match }: DirectMenuProps) => (
+	({ sections, history, match, getShopCollection }: DirectMenuProps) => (
 		<div className='directory-menu'>
 			{sections.map(({ id, ...otherSection }) => (
 				<MenuItem
@@ -37,9 +40,15 @@ const DirectoryMenu = connector(
 					{...otherSection}
 					subtitle={'SHOP NOW'}
 					handleClick={() => {
-						console.log({ match: match, linkUrl: otherSection.linkUrl });
+						console.log({
+							match: match,
+							linkUrl: otherSection.linkUrl,
+							title: otherSection.title,
+						});
 						const url = `${match.url}${otherSection.linkUrl}`;
+						getShopCollection(otherSection.title);
 						history.push(url);
+						// history.push()
 					}}
 				/>
 			))}

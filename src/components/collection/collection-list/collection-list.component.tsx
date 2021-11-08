@@ -19,4 +19,16 @@ const CollectionList = ({ displayItem = 4, items }: CollectionListProps) => (
 	</div>
 );
 
+// interface CollectionListProps {
+// 	collection: ShopItem[];
+// }
+
+// const CollectionList = ({ collection }: CollectionListProps) => (
+// 	<>
+// 		{collection.map((item) => (
+// 			<CollectionItem key={item.id} item={item} />
+// 		))}
+// 	</>
+// );
+
 export default CollectionList;

@@ -7,10 +7,15 @@ import CollectionPreview from '../collection-preview/collection-preview.componen
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { createStructuredSelector } from '@reduxjs/toolkit/node_modules/reselect';
-import { selectShopItems } from '../../../redux/shop/shop.selectors';
+import {
+	// selectShopItems,
+	selectCollections,
+	// UrlParam,
+} from '../../../redux/shop/shop.selectors';
 
 const mapState = createStructuredSelector({
-	collections: selectShopItems,
+	// collections: selectShopItems,
+	collections: selectCollections,
 });
 
 const mapDispatch = (dispatch: Dispatch) => ({});
@@ -24,16 +29,26 @@ interface CollectionPreviewListProps extends PropsFromRedux {}
 const CollectionPreviewList = connector(
 	({ collections }: CollectionPreviewListProps) => (
 		<>
+			{/* {Object.keys(collections).map((key: UrlParam) =>} */}
+			{Object.entries(collections).map(([key, value]) => (
+				<CollectionPreview
+					key={value.id}
+					title={value.title}
+					items={value.items}
+				/>
+			))}
 			{/* {
 				collections.map
 			} */}
 			{/* {collections.map(({ id, title, items, ...otherCollectionProps }) => ( */}
 			{/* {collections.map(({ id, title, items }) => { */}
-			{collections.map(({ id, title, items }) => (
-				// <CollectionPreview key={id} displayItem={4} {...otherCollectionProps} />
+			{/* {collections.map(({ id, title, items }) => ( */}
+			{/* {collections.map(({ id, title, items }) => ( */}
+			{/* // <CollectionPreview key={id} displayItem={4} {...otherCollectionProps} />
 				// <CollectionPreview key={id} title={title} items={...items} />
-				<CollectionPreview key={id} title={title} items={items} />
-			))}
+				// <CollectionPreview key={id} title={title} items={items} />
+				<CollectionPreview key={id} title={title} items={items} /> */}
+			{/* ))} */}
 		</>
 	)
 );
